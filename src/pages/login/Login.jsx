@@ -5,6 +5,7 @@ import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import { useEffect } from "react";
 import { BASE_URL } from "../../context/Constant";
+import API from "../../../api";
 export const Login = () => {
   const [credentials, setCredentials] = useState({
     username: undefined,
@@ -26,7 +27,7 @@ export const Login = () => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post(`${BASE_URL}/auth/login`, credentials);
+      const res = await API.post(`/auth/login`, credentials);
       if (res.data.isAdmin) {
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
         navigate("/");

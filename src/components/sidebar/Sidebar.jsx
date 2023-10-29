@@ -15,8 +15,9 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import { DarkModeContext } from "../../context/DarkModeContext";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import API from "../../../api";
 import { BASE_URL } from "../../context/Constant";
+import axios from "axios";
+import API from "../../../api";
 
 export const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -25,11 +26,16 @@ export const Sidebar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.delete(`${BASE_URL}/auth/logout`);
-      authDispatch({ type: "LOGOUT" }); // Use the authDispatch function directly
+      // Make a DELETE request to logout endpoint
+      await API.delete(`/auth/logout`);
+      // Dispatch the LOGOUT action to clear user data from AuthContext
+      authDispatch({ type: "LOGOUT" });
+
+      // Redirect the user to the home page
       navigate("/");
     } catch (err) {
-      console.log("some error");
+      // Handle errors here, you can show a user-friendly message or log the error
+      console.error("Logout error:", err);
     }
   };
   return (
@@ -72,32 +78,15 @@ export const Sidebar = () => {
           </li>
           <p className="title">USEFUL</p>
           <li>
-            <InsertChartIcon className="icon" />
-            <span>Status</span>
-          </li>
-          <li>
             <NotificationsNoneIcon className="icon" />
             <span>Notifications</span>
-          </li>
-          <p className="title">SERVICE</p>
-          <li>
-            <SettingsSystemDaydreamOutlinedIcon className="icon" />
-            <span>System Health</span>
-          </li>{" "}
-          <li>
-            <PsychologyOutlinedIcon className="icon" />
-            <span>Logs</span>
-          </li>
-          <li>
-            <SettingsApplicationsIcon className="icon" />
-            <span>Settings</span>
           </li>
           <p className="title">USER</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
           </li>{" "}
-          <li onClick={() => handleLogout()}>
+          <li onClick={handleLogout}>
             <ExitToAppIcon className="icon" />
             <span>Logout</span>
           </li>

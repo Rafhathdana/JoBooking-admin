@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { BASE_URL } from "../../context/Constant";
+import API from "../../../api";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const Register = () => {
     setIsLoading(true);
     setCredentials((prev) => ({ ...prev, isAdmin: true }));
     try {
-      const res = await axios.post(`${BASE_URL}/auth/register`, credentials);
+      const res = await API.post(`/auth/register`, credentials);
       console.log(res.data);
       if (res.data) {
         setIsLoading(false);
