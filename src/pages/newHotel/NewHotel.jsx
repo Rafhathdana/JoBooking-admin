@@ -10,6 +10,7 @@ import { BASE_URL } from "../../context/Constant";
 import API from "../../../api";
 
 export const NewHotel = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
@@ -33,6 +34,7 @@ export const NewHotel = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const list = await Promise.all(
         Object.values(files).map(async (file) => {
           const data = new FormData();
@@ -55,8 +57,11 @@ export const NewHotel = () => {
       };
 
       await API.post(`/hotels`, newhotel);
+      alert("uploaded success");
+      setIsLoading(false);
     } catch (err) {
       console.log(err);
+      setIsLoading(false);
     }
   };
   return (

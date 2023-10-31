@@ -4,6 +4,7 @@ import { Navbar } from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
 import axios from "axios";
+import API from "../../../api";
 
 export const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
@@ -31,7 +32,7 @@ export const New = ({ inputs, title }) => {
         img: url,
       };
 
-      await post(`${BASE_URL}/auth/register`, newUser);
+      await API.post(`auth/register`, newUser);
     } catch (err) {
       console.log(err);
     }

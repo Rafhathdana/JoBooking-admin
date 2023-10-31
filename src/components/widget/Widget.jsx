@@ -12,7 +12,7 @@ import API from "../../../api";
 const Widget = ({ type }) => {
   const [data, setData] = useState({
     title: "",
-    isMoney: false,
+    isMoney: false, 
     link: "",
     amount: 0,
     icon: null,
