@@ -25,100 +25,98 @@ export default function App() {
   };
   return (
     <div className={darkMode ? "app dark" : "app"}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/">
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
+      <Routes>
+        <Route path="/">
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route
+            index
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="users">
             <Route
               index
               element={
                 <ProtectedRoute>
-                  <Home />
+                  <List columns={userColumns} />
                 </ProtectedRoute>
               }
             />
-            <Route path="users">
-              <Route
-                index
-                element={
-                  <ProtectedRoute>
-                    <List columns={userColumns} />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path=":userId"
-                element={
-                  <ProtectedRoute>
-                    <Single />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="new"
-                element={
-                  <ProtectedRoute>
-                    <New inputs={userInputs} title="Add New User" />
-                  </ProtectedRoute>
-                }
-              />
-            </Route>
-            <Route path="hotels">
-              <Route
-                index
-                element={
-                  <ProtectedRoute>
-                    <List columns={hotelColumns} />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path=":productId"
-                element={
-                  <ProtectedRoute>
-                    <Single />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="new"
-                element={
-                  <ProtectedRoute>
-                    <NewHotel />
-                  </ProtectedRoute>
-                }
-              />
-            </Route>
-            <Route path="rooms">
-              <Route
-                index
-                element={
-                  <ProtectedRoute>
-                    <List columns={roomColumns} />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path=":productId"
-                element={
-                  <ProtectedRoute>
-                    <Single />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="new"
-                element={
-                  <ProtectedRoute>
-                    <NewRoom />
-                  </ProtectedRoute>
-                }
-              />{" "}
-            </Route>
+            <Route
+              path=":userId"
+              element={
+                <ProtectedRoute>
+                  <Single />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="new"
+              element={
+                <ProtectedRoute>
+                  <New inputs={userInputs} title="Add New User" />
+                </ProtectedRoute>
+              }
+            />
           </Route>
-        </Routes>
-      </BrowserRouter>
+          <Route path="hotels">
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <List columns={hotelColumns} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path=":productId"
+              element={
+                <ProtectedRoute>
+                  <Single />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="new"
+              element={
+                <ProtectedRoute>
+                  <NewHotel />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+          <Route path="rooms">
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <List columns={roomColumns} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path=":productId"
+              element={
+                <ProtectedRoute>
+                  <Single />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="new"
+              element={
+                <ProtectedRoute>
+                  <NewRoom />
+                </ProtectedRoute>
+              }
+            />{" "}
+          </Route>
+        </Route>
+      </Routes>
     </div>
   );
 }
